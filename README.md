@@ -39,7 +39,7 @@ build_unflags = -Os
 build_flags = 
 	-O2 
 	-DSYSTEM_CLOCK=100000000  # your processor speed in Hz
-	-DHAS_CORTEX_M4 
+	-DHAS_CORTEX_M4           # make sure that's true for your board!
 ```
 The list of supported boards can be founds at: https://docs.platformio.org/en/latest/boards/
 In my case, I have a STM32 nucleo board (Nucleo F411RE) which runs at 100 MHz. 
@@ -71,6 +71,7 @@ This work is a proof of concept, and has some limitations:
 - Only Cortex-M4 boards are integrated. 
 - Dependencies to the Arduino framework.
 - Dependencies to platformio build system / toolchain 
+- It has been only tested on one board (Nucleo F411RE)...
 
 Future work might include:
 - support for other processors and architectures.
@@ -79,33 +80,11 @@ used for Zephyr/ThreadX.
 - Remove dependencies to the Arduino framework.
 - Use the Zephyr's compiler/toolchain, and framework if applicable.
 
+Want to know more?
+------------------
+Check the file `docs/Design.md`
+
 Credits
 -------
-Thanks to xiongyu0523 aka. Neo for the his initial port of Azure RTOS ThreadX
-library for Arduino.
+Thanks to Neo Xiong (aka. xiongyu0523) for his initial port of Azure RTOS ThreadX library for Arduino.
 
-
-Project Structure
------------------
-.
-├── include
-├── lib
-├── src
-├── test
-├── platformio.ini
-└── README.md
-
-`lib` contains:
-    - The ThreadX kernel
-    - The ThreadX porting layer for the RTOS performance benchmark
-    - The BSP layer for Cortex M4 boards
-
-`src` contains:
-The RTOS performance benchmarks for:
-    - Basic Processing Test
-    - Cooperative Scheduling Test
-    - Preemptive Scheduling Test
-    - Message Processing Test
-    - Synchronization Processing Test
-
- 
