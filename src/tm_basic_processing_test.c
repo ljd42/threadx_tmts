@@ -43,10 +43,14 @@
 /**************************************************************************/ 
 #include "tm_api.h"
 
+/**************************************************************************
+ * changes:                                                               *
+ * 07.10.2024 ljd42     The counter should be volatile!                   *
+ * *********************x**************************************************/
 
 /* Define the counters used in the demo application...  */
 
-unsigned long   tm_basic_processing_counter;
+volatile unsigned long   tm_basic_processing_counter;
 
 
 /* Test array.  We will just do a series of calculations on the 
