@@ -49,6 +49,23 @@ threadx-6.4.1_rel/common/src/*
 
 The only added file is `tx_port.h`. This header takes care of including the "proper" `tx_port.h` for the target board from the BSP layer located under `lib/ports`.
 
+It also defines the config settings mentionned in Beningo's report Appendix
+B if the flag `USE_JB_SETTINGS=1`
+```
+/* Jacob Beningo's settings defined in Appendix B */
+
+#define TX_DISABLE_ERROR_CHECKING
+#define TX_DISABLE_PREEMPTION_THRESHOLD
+#define TX_DISABLE_NOTIFY_CALLBACKS
+#define TX_DISABLE_REDUNDANT_CLEARING
+#define TX_DISABLE_STACK_FILLING
+#define TX_NOT_INTERRUPTABLE
+#define TX_TIMER_PROCESS_IN_ISR
+#define TX_REACTIVATE_INLINE
+#define TX_INLINE_THREAD_RESUME_SUSPEND
+```
+
+
 ### lib/ports
 This is the BSP for the target boards.
 

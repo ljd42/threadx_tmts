@@ -40,9 +40,12 @@ build_flags =
 	-O2 
 	-DSYSTEM_CLOCK=100000000  # your processor speed in Hz
 	-DHAS_CORTEX_M4           # make sure that's true for your board!
+    -DUSE_JB_SETTINGS=1       # use Beningo's config settings (Appendix B)
 ```
 The list of supported boards can be founds at: https://docs.platformio.org/en/latest/boards/
 In my case, I have a STM32 nucleo board (Nucleo F411RE) which runs at 100 MHz. 
+
+The flag `USE_JB_SETTINGS=1` configures ThreadX with the settings as per Appendix B of Beningo's report. If not set (or set to 0), the default ThreadX config settings are used. See table below for the performance differences between default and "JB settings".
 
 - compile the wanted benchmark and upload the sketch
 ```
@@ -63,6 +66,26 @@ Benchmarks available:
 | tm_sync       | Synchronization Processing Test |
 
 You can then connect to your board over the serial line your preferred terminal emulators (minicom, screen,...). If everything goes well, you should see every 30 seconds the current metric report.
+
+Config Settings Performance
+---------------------------
+
+The table shows the ratio between the default and the "JB" settings measured
+on the Nucleo F411RE board.
+
+Worth noting:
+- all but tm_malloc runs faster with "JB" settings.
+- tm_preempt runs at x1.28 faster and has the most signifcant speed improvement.
+- tm_malloc runs slower (x0.94) with "JB" settings.
+
+| benchmark  | default  |   JB     | JB/default |
+| ---------  | -------- | -------- | ---------- |
+| tm_basic   |   243889 |   243896 | 100%       |
+| tm_coop    | 20830276 | 20824372 | 100%       |
+| tm_preempt |  6741668 |  8602319 | 128%       |
+| tm_malloc  | 29689341 | 27765900 |  94%       |
+| tm_message | 14844665 | 15378021 | 104%       |
+| tm_sync    | 28832942 | 30914605 | 107%       |
 
 
 Pitfalls and future works
